@@ -41,7 +41,7 @@ public class TestShape {
         System.out.println(r2.getColor());
         System.out.println(r2.getSide());
         System.out.println(r2.getLength());
-        //update
+
 
     }
 }
