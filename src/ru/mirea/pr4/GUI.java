@@ -43,7 +43,7 @@ public class GUI extends JFrame {
 
         //ImageIcon icon2=new ImageIcon("rm.png");
         JLabel logoRM=new JLabel();
-        logoRM.setIcon(new ImageIcon(new ImageIcon("rm.png").getImage().getScaledInstance(130, 100, Image.SCALE_DEFAULT)));
+        logoRM.setIcon(new ImageIcon(new ImageIcon("rm.png").getImage().getScaledInstance(120, 100, Image.SCALE_DEFAULT)));
 
         pnl[0].setLayout(new BorderLayout());
         pnl[0].add(logoAC);
