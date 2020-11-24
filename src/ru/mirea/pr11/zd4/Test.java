@@ -1,97 +1,115 @@
 package ru.mirea.pr11.zd4;
 
-
-
-
-
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Test {
-    public static void evaluate1() throws Exception {
-        System.out.println("Function: x * (y-2) * z + 1, ");
-        System.out.print("Enter the value x, y, z: ");
-        Scanner scanner = new Scanner(System.in);
-
-        int x = scanner.nextInt();
-        int y = scanner.nextInt();
-        int z = scanner.nextInt();
-        ExpressionParser function = new Add(
-                new Multiply(
-                        new Variable("x"),
-                        new Multiply(
-                                new Subtract(
-                                        new Variable("y"),
-                                        new Const(2)
-                                ),
-                                new Variable("z")
-                        )
-                ),
-                new Const(1)
-        );
-        System.out.println("Result: "+function.evaluate(x,y,z));
-
-    }
-
-    public static void evaluate2() throws Exception {
-        System.out.println("Function: 1000000*x*x*x*x*x/(x-1) ");
-        System.out.print("Enter the value x: ");
-        Scanner scanner = new Scanner(System.in);
-        int x = scanner.nextInt();
-        ExpressionParser function = new Divide(
-                new Multiply(
-                        new Const(1000000),
-                        new Multiply(
+    public static Scanner sc = new Scanner(System.in);
+    public static void evaluate1() {
+        System.out.print("This program calculates the input:" +
+                "\nFunction: x * (y-2) * z + 1\n" +
+                "Enter x, y, z: ");
+        try {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            int z = sc.nextInt();
+            ExpressionParser function = new Add(
+                    new Multiply(
+                            new Variable("x"),
                             new Multiply(
-                                    new Multiply(
-                                        new Variable("x"),
-                                        new Variable("x")
+                                    new Subtract(
+                                            new Variable("y"),
+                                            new Const(2)
                                     ),
+                                    new Variable("z")
+                            )
+                    ),
+                    new Const(1)
+            );
+            System.out.println(function.evaluate(x, y, z));
+            System.out.println();
+
+        }
+        catch (InputMismatchException ime) {
+            System.out.print("Wrong input! Please try again.");
+            sc.next(); System.out.println(); System.out.println();
+            evaluate1();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+    }
+    public static void evaluate2() {
+        System.out.print("This program calculates the input:" +
+                "\nFunction 1000000*x*x*x*x*x/(x-1)\n" +
+                "Enter x: ");
+        try {
+            int x = sc.nextInt();
+            ExpressionParser function = new Divide(
+                    new Multiply(
+                            new Const(1000000),
+                            new Multiply(
+                                    new Variable("x"),
                                     new Multiply(
-                                        new Variable("x"),
-                                        new Variable("x")
+                                            new Variable("x"),
+                                            new Multiply(
+                                                    new Variable("x"),
+                                                    new Multiply(
+                                                            new Variable("x"),
+                                                            new Variable("x")
+                                                    )
+                                            )
                                     )
-                            ),
-                                new Variable("x")
-                        )
-                ),
-                new Subtract(
-                        new Variable("x"),
-                        new Const(1)
-                )
-        );
-        System.out.println("Result: "+function.evaluate(x,0,0));
+                            )
+                    ),
+                    new Subtract(
+                            new Variable("x"),
+                            new Const(1)
+                    )
+            );
+            System.out.println(function.evaluate(x, 0, 0));
+            System.out.println();
+        }
+        catch (InputMismatchException ime) {
+            System.out.print("Wrong input! Please try again.");
+            sc.next(); System.out.println(); System.out.println();
+            evaluate2();
+        }
+        catch (Exception oe) {
+            System.out.println(oe.getMessage());
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
-        boolean run=true;
-        while (run) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("1. Expression: [x * (y-2) * z + 1]");
-            System.out.println("2. Expression: [1000000*x*x*x*x*x/(x-1)]");
-            System.out.println("Enter another number to exit.");
-            System.out.print("Please choose: ");
-            int choose = scanner.nextInt();
-            switch (choose) {
-                case 1:
-                    try {
+        boolean flag = true;
+        do {
+            try {
+                System.out.println("1. Function: x * (y-2) * z + 1");
+                System.out.println("2. Function: 1000000*x*x*x*x*x/(x-1)");
+                System.out.println("Enter another number to exit.");
+                System.out.print("Please choose: ");
+                int choose = sc.nextInt();
+                switch (choose) {
+                    case 1:
+
                         evaluate1();
-                    } catch (Exception e) {
-                        System.out.println("Input number! Please try again.");
-                    }
-                    break;
-                case 2:
+                        break;
+                    case 2:
 
-                    try {
                         evaluate2();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                default:
-                    run=false;
-                    System.out.print("Goodbye.");
+                        break;
+                    default:
+                        flag = false;
+                        System.out.print("Goodbye.");
+                        break;
+                }
             }
-        }
+            catch (InputMismatchException ime) {
+                System.out.print("Wrong input! Please try again.");
+                sc.next(); System.out.println(); System.out.println();
+            }
+        } while (flag);
     }
 }
