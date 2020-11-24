@@ -16,8 +16,9 @@ public class Add extends ExpressionParser {
     }
     @Override
     protected int evaluate(int fr, int b) throws Exception {
-        if(fr+b>Integer.MAX_VALUE||fr+b<Integer.MIN_VALUE)
+        if(b > 0 ? fr > Integer.MAX_VALUE - b : fr < Integer.MIN_VALUE - b)
             throw new InvalidException("overflow");
+
         return fr+b;
     }
 }

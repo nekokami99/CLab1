@@ -15,10 +15,10 @@ public class Divide extends ExpressionParser {
     }
     @Override
     protected int evaluate(int fr, int b) throws Exception {
+        if((fr == Integer.MIN_VALUE) && (b == -1))
+            throw new InvalidException("overflow");
         if(b == 0)
             throw new InvalidException("division by zero");
-        if(fr/b<Integer.MIN_VALUE||fr/b>Integer.MAX_VALUE)
-            throw new InvalidException("overflow");
         return fr/b;
     }
 }
